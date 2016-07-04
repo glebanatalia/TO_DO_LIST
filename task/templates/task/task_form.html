@@ -1,0 +1,26 @@
+{% extends "admin/base_site.html" %}
+{% block title %}TO DO LIST{% endblock %}
+
+{% block branding %}
+<h1 id="site-name"></a></h1>
+{% endblock %}
+
+    {% block breadcrumbs %}
+    <div class="breadcrumbs" style = 'text-align: right'> <p style ="color: white">Welcome, {{request.user.username}}!</p>
+    <a href="/logout">LOGOUT</a>
+
+    </div>
+    {% endblock %}
+
+{% block content%}
+
+    <form id="task_form" method="post" action=".">
+        {% csrf_token %}
+        {{form.as_p}}
+
+        <input type="submit" value="Submit" />
+    </form>
+
+
+{% endblock %}
+

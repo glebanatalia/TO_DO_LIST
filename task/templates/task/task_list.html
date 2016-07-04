@@ -1,0 +1,89 @@
+{% extends "admin/base_site.html" %}
+{% block title %}TO DO LIST{% endblock %}
+
+{% block branding %}
+<h1 id="site-name"></a></h1>
+{% endblock %}
+
+    {% block breadcrumbs %}
+    <div class="breadcrumbs" style = 'text-align: right'> <p style ="color: white">Welcome, {{request.user.username}}!</p>
+    <a href="/logout">LOGOUT</a>
+
+    </div>
+    {% endblock %}
+
+
+
+{% block content%}
+
+
+
+{% if messages %}
+    {% for message in messages %}
+    <p class="alert alert-dismissable {% if message.tags %}alert-{{ message.tags }}"{% endif %}></p>
+    {% endfor %}
+{% endif %}
+
+
+<p><button style="padding: 10px; font-size: 15px; background: white;border-radius: 8px;"><a href ={% url 'task_list' filter_param='uncompleted' %}> Hide completed task</a></button>
+<button style="padding: 10px; font-size: 15px; background: white;border-radius: 8px;"><a href ={% url 'task_list' filter_param='all' %}> Show all</a></button>
+</p>
+
+<button style="float: right;padding: 10px; font-size: 15px; background: white;border-radius: 8px;"><a href='/add_task/' > New task</a></button>
+
+<div style = 'padding-top: 80px'>
+<table style="width:100%; padding-top: 80px">
+  <tr>
+    <th>Task</th>
+    <th>Description</th>
+    <th>Status</th>
+    <th>Actions</th>
+  </tr>
+
+{% for task in tasks %}
+<tr>
+    <td>{{task.task_name}}</td>
+    <td>{{ task.task_description }}</td>
+    <td>
+    {% if task.task_is_done %}
+    <img src="/static/done.png" alt="Done" style="width:20px;height:20px;">
+    {% else %}
+    <img src="/static/notdone.png" alt="NotDone" style="width:20px;height:20px;">
+    {% endif %}
+    </td>
+
+<td>
+  <form action={% url 'edit_task' pk=task.id %} style='display: inline-block' >
+        <input type="submit" value="Edit" style='display: inline-block'>
+</form>
+
+    <form action={% url 'delete_task' pk=task.id %} style='display: inline-block' >
+        <input type="submit" value="Delete">
+        </form>
+
+{% if not task.task_is_done%}
+    <form action={% url 'update_status' status=True pk=task.id %} style='display: inline-block' >
+        <input type="submit" value="Mark as done">
+        </form></p>
+{% else %}
+    <form action={% url 'update_status' status=False pk=task.id %} style='display: inline-block' >
+        <input type="submit" value="Mark as undone">
+    </form></p>
+
+{% endif %}
+
+
+</td>
+</tr>
+
+
+
+{% endfor %}
+</table>
+</div>
+
+
+
+    </body>
+</html>
+{% endblock %}

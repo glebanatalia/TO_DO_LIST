@@ -1,0 +1,33 @@
+{% extends "admin/base_site.html" %}
+{% block title %}TO DO LIST{% endblock %}
+
+{% block branding %}
+<h1 id="site-name"></a></h1>
+{% endblock %}
+
+    {% block breadcrumbs %}
+        <div class="breadcrumbs" style = 'text-align: right'> <p style ="color: white">Welcome {{request.user.username}}!</p>
+        <ap>Please log in to continue</p>
+    </div>
+    {% endblock %}
+
+
+
+
+{% block content%}
+
+{% if message %}
+<p style = "padding: 30px">{{message}}</p>
+{% endif %}
+
+        <form id="login_form" method="post" action=".">
+            {% csrf_token %}
+            Username: <input type="text" name="username" value="" size="50" />
+            <br />
+            Password: <input type="password" name="password" value="" size="50" />
+            <br />  <br />
+
+            <input type="submit" value="Log in" />
+        </form>
+
+{% endblock %}

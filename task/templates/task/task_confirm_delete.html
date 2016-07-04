@@ -1,0 +1,26 @@
+{% extends "admin/base_site.html" %}
+{% block title %}CONFIRM DELETE{% endblock %}
+
+{% block branding %}
+<h1 id="site-name"></a></h1>
+{% endblock %}
+
+    {% block breadcrumbs %}
+    <div class="breadcrumbs" style = 'text-align: right'> <p style ="color: white">Welcome, {{request.user.username}}!</p>
+    <a href="/logout">LOGOUT</a>
+
+    </div>
+    {% endblock %}
+
+
+
+
+
+{% block content%}
+<div style ="margin: 0 auto; font-size: 25px; padding: 100px" align ="center">
+<form action="" method="post" >{% csrf_token %}
+    <p>Are you sure you want to delete "{{ object }}"?</p>
+    <input type="submit" value="Confirm" />
+</form>
+</div>
+{% endblock %}
